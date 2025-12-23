@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"
+    />
+    <title>萝卜 vs 纸巾：真棒挑战 · 竖版H5小游戏</title>
+    <meta
+      name="description"
+      content="在 30 秒里帮猫猫在萝卜和纸巾之间做选择，选对就被夸“真棒”！轻松治愈的竖版 H5 小游戏。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;500&display=swap"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="game-shell" aria-label="萝卜 vs 纸巾：真棒挑战 H5 小游戏">
+        <div class="bg-bubble b1" aria-hidden="true"></div>
+        <div class="bg-bubble b2" aria-hidden="true"></div>
+
+        <header class="top-bar">
+          <div class="logo-group">
+            <div class="logo-avatar" aria-hidden="true">
+              <img src="data/pic/cat.png" alt="可爱猫咪头像插画" />
+            </div>
+            <div class="logo-title">
+              <div class="logo-title-main">萝卜 vs 纸巾</div>
+              <div class="logo-title-sub">选对就被夸「真棒」的小测试</div>
+            </div>
+          </div>
+          <button
+            id="mute-toggle"
+            class="icon-button"
+            type="button"
+            aria-label="切换音效开关"
+          >
+            <span id="mute-icon" class="material-symbols-outlined">volume_up</span>
+          </button>
+        </header>
+
+        <main class="screen-container">
+          <!-- Start screen -->
+          <section
+            id="screen-start"
+            class="screen active"
+            aria-label="开始界面"
+          >
+            <div class="hero-cat">
+              <div class="hero-cat-inner">
+                <img src="data/pic/cat.png" alt="抱着萝卜纸巾纠结中的可爱猫咪插画" />
+              </div>
+            </div>
+            <div class="start-title">
+              <h1>萝卜 vs 纸巾：真棒挑战</h1>
+              <p>
+                30 秒内在
+                <span class="highlight">萝卜</span>
+                和
+                <span class="highlight">纸巾</span>
+                之间瞎蒙，选对就会被夸一句
+                <span class="highlight">真棒</span>！
+              </p>
+            </div>
+            <div class="start-actions">
+              <button id="btn-start" type="button" class="primary-btn">
+                <span class="material-symbols-outlined">play_arrow</span>
+                <span>开始试试看</span>
+              </button>
+              <p class="tip">
+                单手操作友好：大卡片大按钮，轻点就能被猫猫夸～
+              </p>
+            </div>
+          </section>
+
+          <!-- Play screen -->
+          <section id="screen-play" class="screen" aria-label="游戏界面">
+            <div class="hud" role="status" aria-live="polite">
+              <div class="hud-item time">
+                <span class="hud-label">时间</span>
+                <span class="hud-value"><span id="time-value">30.0</span>s</span>
+              </div>
+              <div class="hud-item score">
+                <span class="hud-label">分数</span>
+                <span class="hud-value" id="score-value">0</span>
+              </div>
+              <div class="hud-item combo">
+                <span class="hud-label">连击</span>
+                <span class="hud-value" id="combo-value">0</span>
+              </div>
+            </div>
+
+            <div id="question-text" class="question">
+              帮猫猫选出主人心里的那个答案～
+            </div>
+
+            <div class="card-row" aria-label="选择区域">
+              <button
+                id="card-left"
+                type="button"
+                class="choice-card choice-card--carrot"
+                data-type="carrot"
+                role="button"
+                aria-label="选择萝卜"
+              >
+                <div class="card-illust"></div>
+                <div class="card-label">萝卜<span class="en">carrot</span></div>
+              </button>
+              <button
+                id="card-right"
+                type="button"
+                class="choice-card choice-card--tissue"
+                data-type="tissue"
+                role="button"
+                aria-label="选择纸巾"
+              >
+                <div class="card-illust"></div>
+                <div class="card-label">纸巾<span class="en">tissue</span></div>
+              </button>
+            </div>
+
+            <div id="hint-text" class="hint-text">
+              看看你能被夸几次「真棒」？
+            </div>
+          </section>
+
+          <!-- End screen -->
+          <section id="screen-end" class="screen" aria-label="结算界面">
+            <h2>本局结果</h2>
+            <p class="score-large"><span id="final-score">0</span> 分</p>
+            <p class="score-detail">
+              本局连击最高
+              <span id="best-combo">0</span>
+              ，被夸了
+              <span id="praise-count">0</span>
+              次
+            </p>
+            <p class="score-detail">
+              时间奖励
+              <span id="time-bonus">0</span>
+              分（剩余
+              <span id="remain-sec">0</span>
+              s）
+            </p>
+            <p class="score-detail">
+              你的历史最高分：<span id="best-score-overall">0</span>
+            </p>
+            <div class="end-actions">
+              <button id="btn-restart" type="button" class="primary-btn">
+                <span class="material-symbols-outlined">replay</span>
+                <span>再来一局</span>
+              </button>
+              <button id="btn-share" type="button" class="secondary-btn">
+                <span class="material-symbols-outlined">ios_share</span>
+                <span>炫耀一下</span>
+              </button>
+            </div>
+            <p class="tip small">
+              小提示：可以截图或用浏览器分享，把你的「真棒次数」发给朋友～
+            </p>
+          </section>
+
+          <!-- Praise overlay -->
+          <div id="overlay-praise" aria-hidden="true">
+            <div class="praise-text">真棒！</div>
+            <div class="combo-fire">
+              <span class="material-symbols-outlined">local_fire_department</span>
+              <span id="combo-fire-text">继续保持～</span>
+            </div>
+          </div>
+
+          <div id="toast" class="toast" aria-live="polite"></div>
+        </main>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
